@@ -12,12 +12,8 @@ jobs:
         shell: bash
         run: echo "##[set-output name=repository;]$(echo ${GITHUB_REPOSITORY})"
         id: extract_repository
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ steps.extract_repository.outputs.repository }}:$(date +%s) --tag ${{ steps.extract_repository.outputs.repository }}:${{ steps.extract_branch.outputs.branch }}
+        run: docker build . --file Dockerfile --tag ${{ steps.extract_repository.outputs.repository }}:$(date +%s) --tag ${{ steps.extract_repository.outputs.repository }}:latest
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
