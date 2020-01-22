@@ -8,12 +8,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Extract repo name
-        shell: bash
-        run: echo "##[set-output name=repository;]$(echo ${GITHUB_REPOSITORY})"
-        id: extract_repository
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ steps.extract_repository.outputs.repository }}/application-inspector:$(date +%s) --tag ${{ steps.extract_repository.outputs.repository }}/application-inspector:latest
+        run: docker build . --file Dockerfile --tag 4xxi/application-inspector/application-inspector:$(date +%s) --tag 4xxi/application-inspector/application-inspector:latest
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
